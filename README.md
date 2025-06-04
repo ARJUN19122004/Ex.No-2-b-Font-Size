@@ -1,168 +1,108 @@
-
-
-# Ex.No:2 Develop an application that uses GUI Components with Fonts and Colors
-
+## EXPERIMENT:03  Implement an application that uses Intent(Implicit) using Android Studio.
+Design an Android application with a text field and an "Open in Browser" button. On pressing the button, the app should fetch the URL from the text field and open it in a browser using an Implicit Intent.
 
 ## AIM:
-To develop an application that uses GUI Components with Fonts and Colors using android studio.
 
+To design an Android application with a TextField and a button labeled "Open in Browser." Upon pressing the button, the application should retrieve the URL entered in the TextField and open it in the device's web browser using an implicit intent.
 ## EQUIPMENTS REQUIRED:
 
-Android Studio(Min. required Artic Fox)
-
+Latest Version Android Studio
 
 ## ALGORITHM:
-Step 1: Create a New Android Project:
-              • Click New in the toolbar.
-              • In the window that appears, open the Android folder, select Android Application Project,
-              and click next.
-              • Provide the application name and the project name and then finally give the desired
-              package name.
-              • Choose a launcher icon for your application and then select Blank Activity and then click
-              Next
-              • Provide the desired Activity name for your project and then click Finish.
+Step 1: Open Android Stdio and then click on File -> New -> New project.
 
-Step 2: Create a New AVD (Android Virtual Device):
-        • click Android Virtual Device Manager from the toolbar.
-        • In the Android Virtual Device Manager panel, click New.
-        • Fill in the details for the AVD. Give it a name, a platform target, an SD card size, and
-        a skin (HVGA is default).
-        • Click Create AVD and Select the new AVD from the Android Virtual Device
-        Manager and click Start.
+Step 2: Then type the Application name as implicitintent and click Next.
 
-Step 3: Design the graphical layout with a text view and two command buttons.
+Step 3: Then select the Minimum SDK as shown below and click Next.
 
-Step 4: Run the application.
+Step 4: Then select the Empty Activity and click Next. Finally click Finish.
 
-Step 5:On pressing the change font size button, the size of the font gets altered.
+Step 5: Design layout in activity_main.xml.
 
-Step 6: On pressing the Color button, the color of the text altered.
-       
-Step 6:Close the Android project. 
+Step 6: Type any url, click navigate and that will take you to the expected url.
+
+Step 7: Save and run the application.
 
 
-## Program:
- ```
+## PROGRAM:
+```
 /*
-Program to Develop an application that uses Font Size using Android Studio .
-Developed by: M.ARJUN
-RegisterNumber:  212222040012
+Program to print the text “Implicitintent”.
+Developed by:M.ARJUN
+Registeration Number :212222040012
 */
 ```
-
 ## MainActivity.java:
 
-package com.example.fontsize;
+```
+package com.example.Exp_3;
 
-import androidx.appcompat.app.AppCompatActivity;
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.graphics.Color;
 import android.view.View;
 import android.widget.Button;
-import android.widget.TextView;
+import android.widget.EditText;
 
-import com.example.fontsize.R;
-
+import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
-    int ch=1;
-    float font=30;
+    Button button;
 
+    EditText editText;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        final TextView t= (TextView) findViewById(R.id.textView);
-        Button b1= (Button) findViewById(R.id.button1);
-        b1.setOnClickListener(new View.OnClickListener() {
+        final EditText editText = (EditText) findViewById(R.id.urlText);
+        Button btn = (Button) findViewById(R.id.btnNavigate);
+        btn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                t.setTextSize(font);
-                font = font + 5;
-                if (font == 50)
-                    font = 30;
+                String url = editText.getText().toString();
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+                startActivity(intent);
             }
         });
-        Button b2= (Button) findViewById(R.id.button2);
-        b2.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                switch (ch) {
-                    case 1:
-                        t.setTextColor(Color.RED);
-                        break;
-                    case 2:
-                        t.setTextColor(Color.GREEN);
-                        break;
-                    case 3:
-                        t.setTextColor(Color.BLUE);
-                        break;
-                    case 4:
-                        t.setTextColor(Color.CYAN);
-                        break;
-                    case 5:
-                        t.setTextColor(Color.YELLOW);
-                        break;
-                    case 6:
-                        t.setTextColor(Color.MAGENTA);
-                        break;
-                }
-                ch++;
-                if (ch == 7)
-                    ch = 1;
-            }
-        });
-
-
     }
 }
+```
 
+## activitymain.xml:
 
-
-
-## activity_main.xml:
-
+```
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <TextView
-    android:id="@+id/textView"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="30dp"
-    android:gravity="center"
-    android:text="Hello World!"
-    android:textSize="25sp"
-    android:textStyle="bold" />
-
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/urlText"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="100dp"
+        android:ems="10" />
     <Button
-    android:id="@+id/button1"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    android:gravity="center"
-    android:text="Change font size"
-    android:textSize="25sp" />
-    <Button
-    android:id="@+id/button2"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_margin="20dp"
-    android:gravity="center"
-    android:text="Change color"
-    android:textSize="25sp" />
-    </LinearLayout>
-    
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/btnNavigate"
+        android:layout_below="@+id/urlText"
+        android:text="Navigate"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>
+```
 
-## Output:
-![image](https://github.com/user-attachments/assets/29558112-d65a-4795-a188-086dede4a770)
+## OUTPUT
 
-![image](https://github.com/user-attachments/assets/d63283c8-f53f-47b5-818c-55ca4602dbbf)
+![MAD EX-3(1)](https://github.com/user-attachments/assets/526e77b6-79fc-4f25-86ae-7ca4ee37ec65)
 
-![image](https://github.com/user-attachments/assets/d7015f8a-1ae8-4c24-ad38-3772bb95f465)
+![MAD EXP-3(2)](https://github.com/user-attachments/assets/f25e7a82-e12b-4f13-a3e2-f92730c0ce88)
 
-## Result:
-Thus, the program for android application, Font Size and color was executed successfully using Android Studio.
+![MAD EX-3](https://github.com/user-attachments/assets/ad3f0e7c-9dcc-49a8-b4be-af4dc391885f)
+
+## RESULT
+Thus a Simple Android Application create a navigate button using Implicit Intent to display the web page using Android Studio was developed and executed successfully.
